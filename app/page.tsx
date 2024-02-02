@@ -1,51 +1,55 @@
-import { Link } from "@nextui-org/link";
-import { Snippet } from "@nextui-org/snippet";
-import { Code } from "@nextui-org/code"
-import { button as buttonStyles } from "@nextui-org/theme";
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
+"use client";
+
+import { useEffect, useState, useRef } from "react";
+import AvatarTalks from "../components/AvatarTalks";
+import { Card, CardBody, Avatar } from "@nextui-org/react";
+import { setInterval } from "timers/promises";
+
+const list = [
+  {
+    id: 1,
+    show: true,
+    text: "Aguarde um momento enquanto pesquiso para você...",
+  },
+  {
+    id: 2,
+    show: false,
+    text: "Programação é a prática de criar software através de linguagens de codificação. Os programadores utilizam suas habilidades para escrever e depurar código, transformando conceitos em aplicativos e sistemas. Essa disciplina requer lógica, resolução de problemas e criatividade, usando linguagens como Python e JavaScript. Além de traduzir instruções para o computador, a programação envolve a criação de soluções inovadoras. Essencial para a evolução da tecnologia, os programadores desempenham um papel crucial na criação das experiências digitais que permeiam nosso cotidiano.",
+  },
+  {
+    id: 3,
+    show: false,
+    text: "Um desenvolvedor é um profissional especializado na criação e manutenção de software, utilizando habilidades em programação e tecnologias relevantes. Responsável por traduzir requisitos de projeto em código eficiente, o desenvolvedor enfrenta desafios complexos e colabora com equipes para criar soluções tecnológicas inovadoras. Além das habilidades técnicas, destacam-se qualidades analíticas e criativas. As especialidades incluem desenvolvimento web, mobile e software embarcado, refletindo a diversidade de projetos digitais.",
+  },
+];
 
 export default function Home() {
-	return (
-		<section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-			<div className="inline-block max-w-lg text-center justify-center">
-				<h1 className={title()}>Make&nbsp;</h1>
-				<h1 className={title({ color: "violet" })}>beautiful&nbsp;</h1>
-				<br />
-				<h1 className={title()}>
-					websites regardless of your design experience.
-				</h1>
-				<h2 className={subtitle({ class: "mt-4" })}>
-					Beautiful, fast and modern React UI library.
-				</h2>
-			</div>
+  const [show2, setShow2] = useState(false);
+  const [show3, setShow3] = useState(false);
 
-			<div className="flex gap-3">
-				<Link
-					isExternal
-					href={siteConfig.links.docs}
-					className={buttonStyles({ color: "primary", radius: "full", variant: "shadow" })}
-				>
-					Documentation
-				</Link>
-				<Link
-					isExternal
-					className={buttonStyles({ variant: "bordered", radius: "full" })}
-					href={siteConfig.links.github}
-				>
-					<GithubIcon size={20} />
-					GitHub
-				</Link>
-			</div>
+  useEffect(() => {
+    setTimeout(() => {
+      setShow2(true);
+    }, 5000);
+  });
 
-			<div className="mt-8">
-				<Snippet hideSymbol hideCopyButton variant="flat">
-					<span>
-						Get started by editing <Code color="primary">app/page.tsx</Code>
-					</span>
-				</Snippet>
-			</div>
-		</section>
-	);
+  useEffect(() => {
+    if (show2) {
+      setTimeout(() => {
+        setShow3(true);
+      }, 20000);
+    }
+  }, [show2]);
+
+  return (
+    <section className="items-center justify-center flex-nowrap gap-4 py-12 w-full h-full">
+      <Card className="container flex flex-col h-full p-0 m-0">
+        <CardBody className="flex flex-col flex-nowrap gap-9 items-start justify-items-start w-full h-full mt-4">
+          <AvatarTalks texto={list[0].text} />
+          {show2 && <AvatarTalks texto={list[1].text} />}
+          {show3 && <AvatarTalks texto={list[2].text} />}
+        </CardBody>
+      </Card>
+    </section>
+  );
 }
