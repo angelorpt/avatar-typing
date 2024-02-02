@@ -5,13 +5,13 @@ import { Card, CardBody, Avatar } from "@nextui-org/react";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
 import styles from "./AvatarTalks.module.css";
 
-export default function AvatarTalks({ texto }: { texto: string }) {
+export default function AvatarTalks({ texto }: { texto: string[] }) {
   const [text, helper] = useTypewriter({
-    words: [texto],
+    words: texto,
     loop: 1,
     typeSpeed: 30,
-    deleteSpeed: 30,
-    delaySpeed: 5000,
+    deleteSpeed: 20,
+    delaySpeed: 3500,
   });
 
   /* Hook helper */
